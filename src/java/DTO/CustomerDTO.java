@@ -24,6 +24,18 @@ public class CustomerDTO {
 
     }
 
+    public CustomerDTO(int id, String navn, String vejNavn, String husNr, String byNavn, String postNr, String cprNr, String email, String tlfNr){
+        this.id = id;
+        this.navn = navn;
+        this.vejNavn = vejNavn;
+        this.husNr = husNr;
+        this.byNavn = byNavn;
+        this.postNr = postNr;
+        this.cprNr = cprNr;
+        this.email = email;
+        this.tlfNr = tlfNr;
+    }
+
     public int getId() {
         return id;
     }
