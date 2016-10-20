@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Context path="/LejeAdmin">
-<Resource name="jdbc/LejeDB" auth="Container" type="javax.sql.DataSource"
-               maxTotal="100" maxIdle="30" maxWaitMillis="10000"
-               username="Admin" password="mathias21" driverClassName="com.mysql.jdbc.Driver"
-               url="jdbc:mysql://lejeadmin.co7nucybg2xg.eu-central-1.rds.amazonaws.com:3306/LejeAdmin"/>
-
-</Context>
