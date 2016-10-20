@@ -29,6 +29,9 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(api.AdresseResource.class);
+        resources.add(api.Filters.RestRequestFilter.class);
+        resources.add(api.Filters.RestResponseFilter.class);
         resources.add(api.LejeKontraktResource.class);
         resources.add(api.LejerResource.class);
     }

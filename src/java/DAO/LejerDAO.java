@@ -25,7 +25,7 @@ public class LejerDAO {
 
     }
 
-    public void createLejer(LejerDTO lejer) throws IllegalArgumentException{
+    public LejerDTO createLejer(LejerDTO lejer) throws IllegalArgumentException{
         // validate all of the customer information
         if (isNullOrEmpty(lejer.getType()) || isNullOrEmpty(lejer.getFornavn()) || isNullOrEmpty(lejer.getIdentifikation()) ||
             isNullOrEmpty(lejer.getEmail()) || isNullOrEmpty(lejer.getTlfNummer())){
@@ -52,10 +52,10 @@ public class LejerDAO {
         queryFields += ", Identifikation, Email, TlfNummer";
         queryParameters += ", ?, ?, ?";
 
-        String query = "INSERT INTO lejer (" + queryFields + ") VALUES(" + queryParameters + ");";
+        String query = "INSERT INTO Lejer (" + queryFields + ") VALUES(" + queryParameters + ");";
 
         try {
-            PreparedStatement stm = ConnectionHelper.getConnection().prepareStatement(query);
+            PreparedStatement stm = ConnectionHelper.getConnection().prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
             stm.setString(paramCounter++, lejer.getType());
             stm.setString(paramCounter++, lejer.getFornavn());
             if(!isNullOrEmpty(lejer.getEfternavn()))
@@ -68,19 +68,30 @@ public class LejerDAO {
 
             stm.execute();
 
+            ResultSet generatedKeys = stm.getGeneratedKeys();
+
+            if (generatedKeys.next())
+                lejer.setLejerID(generatedKeys.getInt(1));
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return lejer;
     }
 
     // Method for getting all of the customers.
-    public ArrayList<LejerDTO> getLejere() throws SQLException{
+    public ArrayList<LejerDTO> getLejere() {
         String query = "SELECT * FROM Lejer";
         ArrayList<LejerDTO> lejere = null;
         //try {
+        ResultSet result = null;
+        try {
             lejere = new ArrayList<>();
-            ResultSet result = ConnectionHelper.getConnection().prepareStatement(query).executeQuery();
-            while(result.next()){
+
+            result = ConnectionHelper.getConnection().prepareStatement(query).executeQuery();
+
+        while(result.next()){
                 LejerDTO nuværendeLejer = new LejerDTO(
                         result.getString("Type"),
                         result.getString("Fornavn"),
@@ -94,22 +105,19 @@ public class LejerDAO {
                 nuværendeLejer.setLejerID(result.getInt("LejerID"));
                 lejere.add(nuværendeLejer);
             }
-            return lejere;
-        /*} catch (SQLException e) {
-            // TODO Think about if this can be handled nicely
+        } catch (SQLException e) {
             e.printStackTrace();
-        }*/
-        // This should never happen unless something has gone wrong.
-        //return null;
+        }
+        return lejere;
     }
 
-    public LejerDTO getLejer(int lejerID) throws IllegalArgumentException, SQLException{
+    public LejerDTO getLejer(int lejerID) throws IllegalArgumentException{
         // Check that the id is actually possible
         if (lejerID <= 0){
             throw new IllegalArgumentException("The id can't be less than one.");
         }
         LejerDTO lejer = null;
-        /*try {*/
+        try {
             String query  = "SELECT " +
                     "Lejer.LejerID," +
                     "Lejer.Type," +
@@ -154,10 +162,10 @@ public class LejerDAO {
             }
 
 
-        /*} catch (SQLException e) {
+        } catch (SQLException e) {
             // Something should be done to tell the user of this method wether their query was wrong or the internet is down.
             e.printStackTrace();
-        }*/
+        }
         return lejer;
     }
 

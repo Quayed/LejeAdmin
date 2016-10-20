@@ -5,6 +5,10 @@
  */
 package DTO;
 
+import Helpers.JsonHelper;
+
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import java.util.Date;
 
 /**
@@ -23,7 +27,9 @@ public class LejerDTO {
     private String tlfNummer;
     private Date lastUpdated;
 
+    public LejerDTO(){
 
+    }
     public LejerDTO(String type, String fornavn, String efternavn, int adresseID, String identifikation, String email, String tlfNummer, Date lastUpdated){
         this.type = type;
         this.fornavn = fornavn;
@@ -34,10 +40,33 @@ public class LejerDTO {
         this.tlfNummer = tlfNummer;
         this.lastUpdated = lastUpdated;
     }
-    public LejerDTO(){
 
+    public JsonObjectBuilder getAsJsonBuilder(boolean details){
+        JsonHelper jsonHelper = new JsonHelper();
+
+        jsonHelper.add("lejerID", lejerID)
+                .add("type", type)
+                .add("fornavn", fornavn)
+                .add("efternavn", efternavn)
+                .add("adresseID", adresseID);
+
+        if(adresse != null && details){
+            jsonHelper.getObjectBuilder().add("adresse", adresse.getAsJson());
+        }
+
+        jsonHelper.add("identifikation", identifikation)
+                .add("email", email)
+                .add("tlfNummer", tlfNummer)
+                .add("lastUpdated", lastUpdated);
+
+        return jsonHelper.getObjectBuilder();
     }
 
+    public JsonObject getAsJson(boolean details){
+        return getAsJsonBuilder(details).build();
+    }
+
+    //<editor-fold desc="Getters/Setters">
     public int getLejerID() {
         return lejerID;
     }
@@ -45,7 +74,6 @@ public class LejerDTO {
     public void setLejerID(int lejerID) {
         this.lejerID = lejerID;
     }
-
 
     public String getType() {
         return type;
@@ -118,4 +146,5 @@ public class LejerDTO {
     public void setAdresse(AdresseDTO adresse) {
         this.adresse = adresse;
     }
+    //</editor-fold>
 }

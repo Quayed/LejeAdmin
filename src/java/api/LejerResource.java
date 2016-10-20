@@ -5,10 +5,11 @@
  */
 package api;
 
+import DAO.AdresseDAO;
 import DAO.LejerDAO;
+import DTO.AdresseDTO;
 import DTO.LejerDTO;
 import Helpers.JsonHelper;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.ws.rs.*;
@@ -53,28 +54,7 @@ public class LejerResource {
             throw new WebApplicationException(500);
 
         for (LejerDTO lejer : lejere) {
-            JsonObjectBuilder builder = createObjectBuilder()
-                    .add("LejerID", lejer.getLejerID())
-                    .add("Type", lejer.getType())
-                    .add("Fornavn", lejer.getFornavn());
-
-            if (lejer.getEfternavn() == null)
-                builder.addNull("Efternavn");
-            else
-                builder.add("Efternavn", lejer.getEfternavn());
-
-
-            if(lejer.getAdresseID() == 0)
-                builder.addNull("AdresseID");
-            else
-                builder.add("AdresseID", lejer.getAdresseID());
-
-                    builder.add("Identifikation", lejer.getIdentifikation())
-                    .add("Email", lejer.getEmail())
-                    .add("TlfNummer", lejer.getTlfNummer())
-                    .add("LastUpdated", getDateAsString(lejer.getLastUpdated()));
-
-            jsonArrayBuilder.add(builder);
+            jsonArrayBuilder.add(lejer.getAsJsonBuilder(false));
         }
 
         JsonArray jsonArray = jsonArrayBuilder.build();
@@ -98,41 +78,9 @@ public class LejerResource {
         if (lejer == null)
             throw new WebApplicationException(500);
 
-        JsonObjectBuilder objectBuilder = createObjectBuilder()
-                .add("LejerID", lejer.getLejerID())
-                .add("Type", lejer.getType())
-                .add("Fornavn", lejer.getFornavn());
-
-        if (lejer.getEfternavn() == null)
-            objectBuilder.addNull("Efternavn");
-        else
-            objectBuilder.add("Efternavn", lejer.getEfternavn());
-
-
-        if(lejer.getAdresseID() == 0) {
-            objectBuilder.addNull("AdresseID");
-            objectBuilder.addNull("Adresse");
-        }else {
-            objectBuilder.add("AdresseID", lejer.getAdresseID());
-            objectBuilder.add("Adresse", createObjectBuilder()
-                .add("AdresseID", lejer.getAdresse().getAdresseID())
-                .add("Vej", lejer.getAdresse().getVej())
-                .add("Nummer", lejer.getAdresse().getNummer())
-                .add("Postnumemr", lejer.getAdresse().getPostnummer())
-                .add("LastUpdated", getDateAsString(lejer.getAdresse().getLastUpdated())));
-        }
-        objectBuilder.add("Identifikation", lejer.getIdentifikation())
-                .add("Email", lejer.getEmail())
-                .add("TlfNummer", lejer.getTlfNummer())
-                .add("LastUpdated", getDateAsString(lejer.getLastUpdated()));
-
-
-        JsonHelper helper = new JsonHelper();
-
-        String returnString = helper.jsonObjectToString(objectBuilder.build());
 
         // TODO remeber to do some caching
-        return Response.ok(returnString).build();
+        return Response.ok(new JsonHelper().jsonObjectToString(lejer.getAsJson(true))).build();
     }
 
     /**
@@ -142,14 +90,24 @@ public class LejerResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response createLejer(LejerDTO customer) {
+    public Response createLejer(LejerDTO lejer) throws SQLException{
+
+        if (lejer.getAdresse() != null && lejer.getAdresseID() == 0){
+            AdresseDTO adresse = new AdresseDAO().createAdresse(lejer.getAdresse());
+            lejer.setAdresseID(adresse.getAdresseID());
+        }
+
         LejerDAO dao = new LejerDAO();
+
         try {
-            dao.createLejer(customer);
+            lejer = dao.createLejer(lejer);
         } catch (IllegalArgumentException e){
             throw new WebApplicationException(e.getMessage(), 415);
         }
 
-        return Response.ok("The resource was created").build();
+        if (lejer.getLejerID() == 0)
+            return Response.serverError().build();
+
+        return Response.ok(new JsonHelper().jsonObjectToString(lejer.getAsJson(true))).build();
     }
 }

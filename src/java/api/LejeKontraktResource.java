@@ -19,7 +19,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author mathias
  */
-@Path("LejeKontrakt")
+@Path("lejekontrakt")
 public class LejeKontraktResource {
 
     @Context

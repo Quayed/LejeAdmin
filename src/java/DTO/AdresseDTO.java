@@ -1,5 +1,8 @@
 package DTO;
 
+import Helpers.JsonHelper;
+
+import javax.json.JsonObject;
 import java.util.Date;
 
 /**
@@ -12,12 +15,29 @@ public class AdresseDTO {
     private String postnummer;
     private Date lastUpdated;
 
+    public AdresseDTO() {
+
+    }
+
     public AdresseDTO(String vej, String nummer, String postnummer) {
         this.vej = vej;
         this.nummer = nummer;
         this.postnummer = postnummer;
     }
 
+    public JsonObject getAsJson() {
+        JsonHelper jsonHelper = new JsonHelper();
+
+        jsonHelper.add("adresseID", adresseID)
+                .add("vej", vej)
+                .add("nummer", nummer)
+                .add("postnummer", postnummer)
+                .add("lastUpdated", lastUpdated);
+
+        return jsonHelper.getJsonObject();
+    }
+
+    //<editor-fold desc="Getters/Setters">
     public int getAdresseID() {
         return adresseID;
     }
@@ -57,4 +77,5 @@ public class AdresseDTO {
     public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
+    //</editor-fold>
 }
