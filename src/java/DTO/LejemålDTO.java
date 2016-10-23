@@ -33,6 +33,7 @@ public class LejemålDTO {
     private double kølingsbidrag;
     private double antennebidrag;
     private double beboerrepræsentation;
+    private ArrayList<AndreBidragDTO> andreBidrag;
     private Date skatterOgAfgifterPr;
     private boolean udlejerLevereFjernvarme;
     private boolean udlejerLevereCentralvarme;
@@ -559,5 +560,13 @@ public class LejemålDTO {
 
     public void setHusordenForeligger(boolean husordenForeligger) {
         this.husordenForeligger = husordenForeligger;
+    }
+
+    public ArrayList<AndreBidragDTO> getAndreBidrag() {
+        return andreBidrag;
+    }
+
+    public void setAndreBidrag(ArrayList<AndreBidragDTO> andreBidrag) {
+        this.andreBidrag = andreBidrag;
     }
 }
