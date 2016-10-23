@@ -1,6 +1,7 @@
 package DAO;
 
 import DTO.AdresseDTO;
+import Helpers.NamedParameterStatement;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -53,22 +54,25 @@ public class AdresseDAO {
             throw new IllegalArgumentException("Ingen vej!");
 
         if (isNullOrEmpty(adresse.getNummer()))
-            throw new IllegalArgumentException("Ingen Nummer!");
+            throw new IllegalArgumentException("Intet Nummer!");
 
         if (isNullOrEmpty(adresse.getPostnummer()))
-            throw new IllegalArgumentException("Ingen postnummer!");
+            throw new IllegalArgumentException("Intet postnummer!");
 
         String query = "INSERT INTO Adresse (Vej, Nummer, Postnummer)" +
-                        "VALUES (?, ?, ?);";
+                        "VALUES (:vej, :nummer, :postnummer);";
+
+
         try{
-            PreparedStatement stm = ConnectionHelper.getConnection().prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
-            stm.setString(1, adresse.getVej());
-            stm.setString(2, adresse.getNummer());
-            stm.setString(3, adresse.getPostnummer());
+            NamedParameterStatement stm = new NamedParameterStatement(ConnectionHelper.getConnection(), query);
+            stm.setString("vej", adresse.getVej());
+            stm.setString("nummer", adresse.getNummer());
+            stm.setString("postnummer", adresse.getPostnummer());
 
             stm.execute();
 
-            ResultSet generatedKeys = stm.getGeneratedKeys();
+            ResultSet generatedKeys = stm.getStatement().getGeneratedKeys();
+
             if(generatedKeys.next()) {
                 adresse.setAdresseID(generatedKeys.getInt(1));
             }

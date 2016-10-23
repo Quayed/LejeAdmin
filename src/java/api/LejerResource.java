@@ -84,13 +84,17 @@ public class LejerResource {
     }
 
     /**
-     * PUT method for updating or creating an instance of LejerResource
+     * POST method for creating an instance of LejerResource
      *
      */
-    @PUT
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public Response createLejer(LejerDTO lejer) throws SQLException{
+        // Make sure that adresse is in the object
+        if (lejer.getAdresse() == null && lejer.getAdresseID() == 0){
+            throw new WebApplicationException("Der skal enten være adresse eller adresseID");
+        }
 
         if (lejer.getAdresse() != null && lejer.getAdresseID() == 0){
             AdresseDTO adresse = new AdresseDAO().createAdresse(lejer.getAdresse());
@@ -110,4 +114,6 @@ public class LejerResource {
 
         return Response.ok(new JsonHelper().jsonObjectToString(lejer.getAsJson(true))).build();
     }
+
+
 }

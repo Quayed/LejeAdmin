@@ -43,7 +43,7 @@ public class RestResponseFilter implements ContainerResponseFilter{
         if(type != null){
             String contentType = type.toString();
             if(!contentType.contains("charset")){
-                contentType += ";charset=UTF-8";
+                contentType += "; charset=UTF-8";
                 responseContext.getHeaders().putSingle("Content-type", contentType);
             }
         }

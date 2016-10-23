@@ -70,10 +70,10 @@ public class AdresseResource {
     }
 
     /**
-     * PUT method for updating or creating an instance of AdresseResource
+     * POST method for updating or creating an instance of AdresseResource
      * @param adresse represents the adress to be created
      */
-    @PUT
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createAdresse(AdresseDTO adresse){
