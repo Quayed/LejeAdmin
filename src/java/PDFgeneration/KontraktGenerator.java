@@ -3,6 +3,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import DTO.LejekontraktDTO;
+import DTO.LejemålDTO;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSName;
@@ -21,21 +23,6 @@ public class KontraktGenerator
     private PDDocument pdfDocument;
     private List<PDField> fields;
 
-    // Lejemålet
-    private String boligAdresse = "";
-    private String boligBy = "";
-
-    // Udlejeren
-    private String udlejer = "";
-    private String udlejerCVR = "";
-    private String udlejerAdresse = "";
-
-    // Lejeren
-    private String lejerNavn;
-    private String lejerAdresse;
-
-    // Areal
-
     /*public static void main(String[] args)
     {
         FillPDF fillPDF = new FillPDF();
@@ -46,10 +33,16 @@ public class KontraktGenerator
         }
     }*/
 
-    private void run(String inputFileString, String outputFileString) throws IOException {
+    public void run(String inputFileString, String outputFileString, LejekontraktDTO lejekontrakt) throws IOException {
         pdfDocument = PDDocument.load(new File(inputFileString));
         PDAcroForm acroForm = pdfDocument.getDocumentCatalog().getAcroForm();
+        LejemålDTO lejemål;
 
+        /*if (lejekontrakt.getLejemål() != null)
+            lejemål = lejekontrakt.getLejemål();
+        else
+            return;
+*/
         if (acroForm != null)
         {
             fields = acroForm.getFields();
@@ -58,14 +51,29 @@ public class KontraktGenerator
             fields.get(94).setValue("");
 
             // Lejemålet:
-
             fields.get(1).setValue("Off");  // Lejlighed
             fields.get(54).setValue("Off"); // Enkeltværelse
-            fields.get(3).setValue("Off");  // Ejerlejlighed
             fields.get(4).setValue("Off");  // Andelsbolig
+            fields.get(11).setValue("Off"); // Fremleje
+            fields.get(3).setValue("Off");  // Ejerlejlighed
             fields.get(2).setValue("Off");  // Andet:
             fields.get(93).setValue("");    // Andet: (value)
-            fields.get(11).setValue("Off"); // Fremleje
+
+            /*if (lejemål.getLejemålTypeID() == 1)
+                fields.get(1).setValue("On"); // Lejlighed
+            else if (lejemål.getLejemålTypeID() == 2)
+                fields.get(54).setValue("On"); // Enkeltværelse
+            else if (lejemål.getLejemålTypeID() == 3)
+                fields.get(4).setValue("On");  // Andelsbolig
+            else if (lejemål.getLejemålTypeID() == 4)
+                fields.get(11).setValue("On"); // Fremleje
+            else if (lejemål.getLejemålTypeID() == 5)
+                fields.get(3).setValue("On");  // Ejerlejlighed
+            else if (lejemål.getLejemålTypeID() != 0){
+                fields.get(2).setValue("On");  // Andet:
+                fields.get(93).setValue(lejemål.getLejemålTypeNavn());    // Andet: (value)
+            }*/
+
             fields.get(0).setValue("Holger Danskes Vej 102 st. tv"); // Boligadresse
             fields.get(5).setValue("2000 Frederiksberg");            // Bolig by
 
@@ -76,8 +84,8 @@ public class KontraktGenerator
             fields.get(115).setValue("");               // Udlejer adresse (linje 2)
 
             // Lejeren:
-            fields.get(8).setValue("");     // Lejer (navn)
-            fields.get(108).setValue("");   // Lejer (adresse) (linje 1)
+            fields.get(8).setValue(lejekontrakt.getLejer().getFornavn());     // Lejer (navn)
+            fields.get(108).setValue(lejekontrakt.getLejer().getAdresse().getAsString());   // Lejer (adresse) (linje 1)
             fields.get(113).setValue("");   // Lejer (adresse) (linje 2)
 
             // Areal:
@@ -284,5 +292,12 @@ public class KontraktGenerator
         COSDictionary fieldDict = field.getCOSObject();
         COSArray fieldAreaArray = (COSArray) fieldDict.getDictionaryObject(COSName.RECT);
         return new PDRectangle(fieldAreaArray);
+    }
+
+    private String booleanToOnOff(boolean boolConvert){
+        if(boolConvert)
+            return "On";
+        else
+            return "Off";
     }
 }

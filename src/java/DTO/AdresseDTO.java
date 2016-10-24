@@ -37,6 +37,18 @@ public class AdresseDTO {
         return jsonHelper.getJsonObject();
     }
 
+    public String getAsString(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(vej);
+        sb.append(" ");
+        sb.append(nummer);
+        sb.append(" ");
+        sb.append(postnummer);
+
+        return sb.toString();
+    }
+
     //<editor-fold desc="Getters/Setters">
     public int getAdresseID() {
         return adresseID;
