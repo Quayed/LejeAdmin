@@ -49,10 +49,10 @@ public class KontraktGenerator
             fields = acroForm.getFields();
 
             //Lejemåls nr.:
-            fields.get(94).setValue("");
+            fields.get(94).setValue("100");
 
             // Lejemålet:
-            ((PDCheckBox) fields.get(1)).check();  // Lejlighed
+            fields.get(1).setValue("Yes");  // Lejlighed
             fields.get(54).setValue("Off"); // Enkeltværelse
             fields.get(4).setValue("Off");  // Andelsbolig
             fields.get(11).setValue("Off"); // Fremleje
@@ -61,17 +61,17 @@ public class KontraktGenerator
             fields.get(93).setValue("");    // Andet: (value)
 
             /*if (lejemål.getLejemålTypeID() == 1)
-                fields.get(1).setValue("On"); // Lejlighed
+                fields.get(1).setValue("Yes"); // Lejlighed
             else if (lejemål.getLejemålTypeID() == 2)
-                fields.get(54).setValue("On"); // Enkeltværelse
+                fields.get(54).setValue("Yes"); // Enkeltværelse
             else if (lejemål.getLejemålTypeID() == 3)
-                fields.get(4).setValue("On");  // Andelsbolig
+                fields.get(4).setValue("Yes");  // Andelsbolig
             else if (lejemål.getLejemålTypeID() == 4)
-                fields.get(11).setValue("On"); // Fremleje
+                fields.get(11).setValue("Yes"); // Fremleje
             else if (lejemål.getLejemålTypeID() == 5)
-                fields.get(3).setValue("On");  // Ejerlejlighed
+                fields.get(3).setValue("Yes");  // Ejerlejlighed
             else if (lejemål.getLejemålTypeID() != 0){
-                fields.get(2).setValue("On");  // Andet:
+                fields.get(2).setValue("Yes");  // Andet:
                 fields.get(93).setValue(lejemål.getLejemålTypeNavn());    // Andet: (value)
             }*/
 

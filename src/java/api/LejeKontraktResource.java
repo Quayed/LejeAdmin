@@ -58,7 +58,7 @@ public class LejeKontraktResource {
         LejekontraktDTO localLejekontrakt = new LejekontraktDTO();
         localLejekontrakt.setLejer(lejer);
 
-        String lejekontraktPath = System.getenv("TEMP_PATH") + "Formular" + new Random().nextInt(100000) + ".pdf";
+        String lejekontraktPath = System.getenv("TEMP_PATH") + "/Formular" + new Random().nextInt(100000) + ".pdf";
 
         new KontraktGenerator().run(System.getenv("CONTRACT_PATH"), lejekontraktPath, localLejekontrakt);
 
