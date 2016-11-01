@@ -11,12 +11,15 @@ import DTO.LejerDTO;
 import PDFgeneration.KontraktGenerator;
 
 import javax.ws.rs.*;
+import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.nio.file.*;
 import java.sql.SQLException;
+import java.util.Random;
 
 /**
  * REST Web Service
@@ -40,30 +43,31 @@ public class LejeKontraktResource {
      * @return an instance of java.lang.String
      */
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getJson() {
-        //TODO return proper representation object
-        //throw new UnsupportedOperationException();
-        return null;
+    @Path("{ID}")
+    public Response getLejekontrakt(@PathParam("ID") String ID) throws IOException, SQLException{
+        Response response =  Response.ok(new LejekontraktDAO().getLejekontraktFile(ID)).build();
+        response.getHeaders().add("Content-Type", "application/pdf");
+        return response;
     }
 
 
-    /**
-     * PUT method for updating or creating an instance of LejeKontraktResource
-     * @param content representation for the resource
-     */
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createLejerkontrakt(LejerDTO lejer) throws IOException, SQLException {
         LejekontraktDTO localLejekontrakt = new LejekontraktDTO();
         localLejekontrakt.setLejer(lejer);
 
-        String lejekontraktPath = "/Users/mathias/Desktop/Formular1.pdf";
+        String lejekontraktPath = System.getenv("TEMP_PATH") + "Formular" + new Random().nextInt(100000) + ".pdf";
 
-        new KontraktGenerator().run("/Users/mathias/Desktop/Formular.pdf", lejekontraktPath, localLejekontrakt);
+        new KontraktGenerator().run(System.getenv("CONTRACT_PATH"), lejekontraktPath, localLejekontrakt);
 
-        new LejekontraktDAO().uploadFile(lejekontraktPath);
+        int generatedID = new LejekontraktDAO().uploadFile(lejekontraktPath);
 
-        return Response.ok("all good").build();
+        java.nio.file.Path path = FileSystems.getDefault().getPath(lejekontraktPath);
+
+        Files.delete(path);
+
+        return Response.ok(generatedID).build();
     }
 }

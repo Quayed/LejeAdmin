@@ -16,6 +16,7 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationWidget;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
+import org.apache.pdfbox.pdmodel.interactive.form.PDCheckBox;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 
 public class KontraktGenerator
@@ -51,7 +52,7 @@ public class KontraktGenerator
             fields.get(94).setValue("");
 
             // Lejemålet:
-            fields.get(1).setValue("Off");  // Lejlighed
+            ((PDCheckBox) fields.get(1)).check();  // Lejlighed
             fields.get(54).setValue("Off"); // Enkeltværelse
             fields.get(4).setValue("Off");  // Andelsbolig
             fields.get(11).setValue("Off"); // Fremleje
