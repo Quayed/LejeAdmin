@@ -58,16 +58,16 @@ public class LejeKontraktResource {
         LejekontraktDTO localLejekontrakt = new LejekontraktDTO();
         localLejekontrakt.setLejer(lejer);
 
-        String lejekontraktPath = System.getenv("TEMP_PATH") + "/Formular" + new Random().nextInt(100000) + ".pdf";
+        String lejekontraktPath = "/home/tomcat/uploads/Formular" + new Random().nextInt(100000) + ".pdf";
 
-        new KontraktGenerator().run(System.getenv("CONTRACT_PATH"), lejekontraktPath, localLejekontrakt);
+        new KontraktGenerator().run("/home/tomcat/uploads/lejekontrakt.pdf", lejekontraktPath, localLejekontrakt);
 
-        int generatedID = new LejekontraktDAO().uploadFile(lejekontraktPath);
+        int generatedID =  new LejekontraktDAO().uploadFile(lejekontraktPath);
 
         java.nio.file.Path path = FileSystems.getDefault().getPath(lejekontraktPath);
 
         Files.delete(path);
 
-        return Response.ok(generatedID).build();
+        return Response.ok("/" + generatedID).build();
     }
 }
