@@ -1,6 +1,7 @@
 package DAO;
 
 import DTO.AdresseDTO;
+import Helpers.Loggers;
 import Helpers.NamedParameterStatement;
 import Helpers.SQLStringHelper;
 
@@ -68,7 +69,6 @@ public class AdresseDAO {
         sqlStringHelper.addField("Nummer", "String");
         sqlStringHelper.addField("Postnummer", "String");
 
-
         try{
             NamedParameterStatement stm = new NamedParameterStatement(ConnectionHelper.getConnection(), sqlStringHelper.getCompleteString());
 
@@ -89,6 +89,7 @@ public class AdresseDAO {
             if(generatedKeys.next()) {
                 adresse.setAdresseID(generatedKeys.getInt(1));
             }
+            // TODO HANDLE THESE EXCEPTIONs
         } catch(SQLException e){
             // This should throw some exception so it can actually be handled in the layer above.
             e.printStackTrace();

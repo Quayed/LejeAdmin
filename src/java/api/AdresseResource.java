@@ -78,11 +78,11 @@ public class AdresseResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createAdresse(AdresseDTO adresse) throws Exception{
         AdresseDAO dao = new AdresseDAO();
-//        try{
+        try{
             adresse = dao.createAdresse(adresse);
-//        } catch(IllegalArgumentException e){
-//            throw new WebApplicationException(e.getMessage(), 415);
-//        }
+        } catch(IllegalArgumentException e){
+            throw new WebApplicationException(e.getMessage(), 415);
+        }
 
         JsonObject returnAdresse = createObjectBuilder()
                 .add("AdresseID", adresse.getAdresseID())

@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.lang.reflect.Method;
 
 /**
  * Created by mathias on 24/10/2016.
@@ -85,17 +84,19 @@ public class LejekontraktDAO {
             sqlStringHelper.addField("DepositumDato", "String");
         }
 
-        if(lejekontrakt.getDepositumBeløb() != null){
+        try{
+            lejekontrakt.getDepositumDato();
             sqlStringHelper.addField("DepositumBeløb", "Double");
-        }
+        } catch (NullPointerException e){}
 
         if(lejekontrakt.getForudbetaltLejeDato() != null ){
             sqlStringHelper.addField("ForudbetaltLejeDato", "String");
         }
 
-        if(lejekontrakt.getForudbetaltLejeBeløb() != null){
+        try {
+            lejekontrakt.getForudbetaltLejeBeløb();
             sqlStringHelper.addField("ForudbetaltLejeBeløb", "Double");
-        }
+        } catch(NullPointerException e){}
 
         if(lejekontrakt.getIndbetalingDato() != null){
             sqlStringHelper.addField("IndbetalingDato", "String");
@@ -121,9 +122,10 @@ public class LejekontraktDAO {
             sqlStringHelper.addField("ElregnskabsÅrBegynderDato", "String");
         }
 
-        if(lejekontrakt.getVedligeholdelseskontoBeløb() != null){
+        try {
+            lejekontrakt.getVedligeholdelseskontoBeløb();
             sqlStringHelper.addField("VedligeholdelseskontoBeløb", "Double");
-        }
+        } catch (NullPointerException e){}
 
         if(lejekontrakt.getSærligeVilkår() != null){
             sqlStringHelper.addField("SærligeVilkår", "String");

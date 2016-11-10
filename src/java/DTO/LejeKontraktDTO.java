@@ -37,7 +37,7 @@ public class LejekontraktDTO {
         // Costructor without parameters for automatic JSON parsing.
     }
 
-    public Integer getLejekontraktID() {
+    public int getLejekontraktID() throws NullPointerException {
         return lejekontraktID;
     }
 
@@ -45,7 +45,7 @@ public class LejekontraktDTO {
         this.lejekontraktID = lejekontraktID;
     }
 
-    public Integer getLejerID() {
+    public int getLejerID() throws NullPointerException {
         return lejerID;
     }
 
@@ -61,7 +61,7 @@ public class LejekontraktDTO {
         this.lejer = lejer;
     }
 
-    public Integer getLejemålID() {
+    public int getLejemålID() throws NullPointerException {
         return lejemålID;
     }
 
@@ -93,7 +93,7 @@ public class LejekontraktDTO {
         this.udflytningsDato = udflytningsDato;
     }
 
-    public Integer getBetalingsstedID() {
+    public int getBetalingsstedID() throws NullPointerException {
         return betalingsstedID;
     }
 
@@ -133,7 +133,7 @@ public class LejekontraktDTO {
         this.depositumDato = depositumDato;
     }
 
-    public Double getDepositumBeløb() {
+    public double getDepositumBeløb() throws NullPointerException {
         return depositumBeløb;
     }
 
@@ -149,7 +149,7 @@ public class LejekontraktDTO {
         this.forudbetaltLejeDato = forudbetaltLejeDato;
     }
 
-    public Double getForudbetaltLejeBeløb() {
+    public double getForudbetaltLejeBeløb() throws NullPointerException {
         return forudbetaltLejeBeløb;
     }
 
@@ -205,7 +205,7 @@ public class LejekontraktDTO {
         this.elregnskabsÅrBeygnderDato = elregnskabsÅrBeygnderDato;
     }
 
-    public Double getVedligeholdelseskontoBeløb() {
+    public double getVedligeholdelseskontoBeløb() throws NullPointerException {
         return VedligeholdelseskontoBeløb;
     }
 
