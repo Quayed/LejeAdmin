@@ -6,28 +6,28 @@ import java.util.Date;
  * Created by mathias on 12/10/2016.
  */
 public class LejekontraktDTO {
-    private int lejekontraktID;
-    private int lejerID;
+    private Integer lejekontraktID;
+    private Integer lejerID;
     private LejerDTO lejer;
-    private int lejemålID;
+    private Integer lejemålID;
     private LejemålDTO lejemål;
     private Date begyndelse;
     private Date udflytningsDato;
-    private int betalingsstedID;
+    private Integer betalingsstedID;
     private String betalingRegNr;
     private String betalingKontoNr;
     private String betalingPengeinstitut;
     private String depositumDato;
-    private double depositumBeløb;
+    private Double depositumBeløb;
     private String forudbetaltLejeDato;
-    private double forudbetaltLejeBeløb;
+    private Double forudbetaltLejeBeløb;
     private String indbetalingDato;
     private String forudbetaltlejeStartDato;
     private String forudbetaltlejeSlutDato;
     private String førstHusleje;
     private String vandregnskabsÅrBegynderDato;
     private String elregnskabsÅrBeygnderDato;
-    private double vedligeholdeskonto;
+    private Double VedligeholdelseskontoBeløb;
     private String særligeVilkår;
     private Date underskriftUdlejerDato;
     private Date underskriftLejerDato;
@@ -37,7 +37,7 @@ public class LejekontraktDTO {
         // Costructor without parameters for automatic JSON parsing.
     }
 
-    public int getLejekontraktID() {
+    public Integer getLejekontraktID() {
         return lejekontraktID;
     }
 
@@ -45,7 +45,7 @@ public class LejekontraktDTO {
         this.lejekontraktID = lejekontraktID;
     }
 
-    public int getLejerID() {
+    public Integer getLejerID() {
         return lejerID;
     }
 
@@ -61,7 +61,7 @@ public class LejekontraktDTO {
         this.lejer = lejer;
     }
 
-    public int getLejemålID() {
+    public Integer getLejemålID() {
         return lejemålID;
     }
 
@@ -93,7 +93,7 @@ public class LejekontraktDTO {
         this.udflytningsDato = udflytningsDato;
     }
 
-    public int getBetalingsstedID() {
+    public Integer getBetalingsstedID() {
         return betalingsstedID;
     }
 
@@ -133,7 +133,7 @@ public class LejekontraktDTO {
         this.depositumDato = depositumDato;
     }
 
-    public double getDepositumBeløb() {
+    public Double getDepositumBeløb() {
         return depositumBeløb;
     }
 
@@ -149,7 +149,7 @@ public class LejekontraktDTO {
         this.forudbetaltLejeDato = forudbetaltLejeDato;
     }
 
-    public double getForudbetaltLejeBeløb() {
+    public Double getForudbetaltLejeBeløb() {
         return forudbetaltLejeBeløb;
     }
 
@@ -205,12 +205,12 @@ public class LejekontraktDTO {
         this.elregnskabsÅrBeygnderDato = elregnskabsÅrBeygnderDato;
     }
 
-    public double getVedligeholdeskonto() {
-        return vedligeholdeskonto;
+    public Double getVedligeholdelseskontoBeløb() {
+        return VedligeholdelseskontoBeløb;
     }
 
-    public void setVedligeholdeskonto(double vedligeholdeskonto) {
-        this.vedligeholdeskonto = vedligeholdeskonto;
+    public void setVedligeholdelseskontoBeløb(double vedligeholdelseskontoBeløb) {
+        this.VedligeholdelseskontoBeløb = vedligeholdelseskontoBeløb;
     }
 
     public String getSærligeVilkår() {

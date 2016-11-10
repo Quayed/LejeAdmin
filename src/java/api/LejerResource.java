@@ -90,7 +90,7 @@ public class LejerResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response createLejer(LejerDTO lejer) throws SQLException{
+    public Response createLejer(LejerDTO lejer) throws Exception{
         // Make sure that adresse is in the object
         if (lejer.getAdresse() == null && lejer.getAdresseID() == 0){
             throw new WebApplicationException("Der skal enten være adresse eller adresseID");

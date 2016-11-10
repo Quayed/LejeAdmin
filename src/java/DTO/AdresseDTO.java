@@ -9,7 +9,7 @@ import java.util.Date;
  * Created by mathias on 12/10/2016.
  */
 public class AdresseDTO {
-    private int adresseID;
+    private Integer adresseID;
     private String vej;
     private String nummer;
     private String postnummer;

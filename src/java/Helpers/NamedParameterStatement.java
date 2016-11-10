@@ -5,11 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 /**
  * Created by mathias on 21/10/2016.
  */
@@ -206,6 +203,38 @@ public class NamedParameterStatement {
         int[] indexes=getIndexes(name);
         for(int i=0; i < indexes.length; i++) {
             statement.setTimestamp(indexes[i], value);
+        }
+    }
+
+    /**
+     * Sets a parameter.
+     * @param name  parameter name
+     * @param value parameter value
+     * @throws SQLException if an error occurred
+     * @throws IllegalArgumentException if the parameter does not exist
+     * @see PreparedStatement#setTimestamp(int, java.sql.Timestamp)
+     */
+    public void setDouble(String name, double value) throws SQLException
+    {
+        int[] indexes=getIndexes(name);
+        for(int i=0; i < indexes.length; i++) {
+            statement.setDouble(indexes[i], value);
+        }
+    }
+
+    /**
+     * Sets a parameter.
+     * @param name  parameter name
+     * @param value parameter value
+     * @throws SQLException if an error occurred
+     * @throws IllegalArgumentException if the parameter does not exist
+     * @see PreparedStatement#setTimestamp(int, java.sql.Timestamp)
+     */
+    public void setDate(String name, Date value) throws SQLException
+    {
+        int[] indexes=getIndexes(name);
+        for(int i=0; i < indexes.length; i++) {
+            statement.setDate(indexes[i], new java.sql.Date(value.getTime()));
         }
     }
 

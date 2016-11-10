@@ -2,7 +2,10 @@ package DAO;
 
 import DTO.AdresseDTO;
 import Helpers.NamedParameterStatement;
+import Helpers.SQLStringHelper;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -59,15 +62,25 @@ public class AdresseDAO {
         if (isNullOrEmpty(adresse.getPostnummer()))
             throw new IllegalArgumentException("Intet postnummer!");
 
-        String query = "INSERT INTO Adresse (Vej, Nummer, Postnummer)" +
-                        "VALUES (:vej, :nummer, :postnummer);";
+        SQLStringHelper sqlStringHelper = new SQLStringHelper("INSERT INTO Adresse (", "VALUES (");
+
+        sqlStringHelper.addField("Vej", "String");
+        sqlStringHelper.addField("Nummer", "String");
+        sqlStringHelper.addField("Postnummer", "String");
 
 
         try{
-            NamedParameterStatement stm = new NamedParameterStatement(ConnectionHelper.getConnection(), query);
-            stm.setString("vej", adresse.getVej());
-            stm.setString("nummer", adresse.getNummer());
-            stm.setString("postnummer", adresse.getPostnummer());
+            NamedParameterStatement stm = new NamedParameterStatement(ConnectionHelper.getConnection(), sqlStringHelper.getCompleteString());
+
+
+        for(String[] field : sqlStringHelper.getFields()){
+            switch (field[2]){
+                case "String":
+                    String myString = (String) adresse.getClass().getDeclaredMethod("get" + field[1]).invoke(adresse);
+                    stm.setString(field[0], myString);
+            }
+        }
+
 
             stm.execute();
 
@@ -78,6 +91,12 @@ public class AdresseDAO {
             }
         } catch(SQLException e){
             // This should throw some exception so it can actually be handled in the layer above.
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
 
