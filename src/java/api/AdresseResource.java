@@ -6,7 +6,7 @@
 package api;
 
 import DAO.AdresseDAO;
-import DTO.AdresseDTO;
+import Domain.Adresse;
 import Helpers.JsonHelper;
 
 import javax.json.*;
@@ -15,7 +15,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.MediaType;
-import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -46,11 +45,11 @@ public class AdresseResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAdresser() throws SQLException{
-        ArrayList<AdresseDTO> adresser = new AdresseDAO().getAdresser();
+        ArrayList<Adresse> adresser = new AdresseDAO().getAdresser();
 
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
 
-        for(AdresseDTO adresse : adresser){
+        for(Adresse adresse : adresser){
             JsonObjectBuilder builder = createObjectBuilder()
                     .add("AdresseID", adresse.getAdresseID())
                     .add("Vej", adresse.getVej())
@@ -76,7 +75,7 @@ public class AdresseResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createAdresse(AdresseDTO adresse) throws Exception{
+    public Response createAdresse(Adresse adresse) throws Exception{
         AdresseDAO dao = new AdresseDAO();
         try{
             adresse = dao.createAdresse(adresse);

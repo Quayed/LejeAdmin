@@ -7,17 +7,14 @@ package api;
 
 import DAO.AdresseDAO;
 import DAO.LejerDAO;
-import DTO.AdresseDTO;
-import DTO.LejerDTO;
+import Domain.Adresse;
+import Domain.Lejer;
 import Helpers.JsonHelper;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import javax.json.*;
-
-import static Helpers.GeneralHelper.getDateAsString;
-import static javax.json.Json.createObjectBuilder;
 
 /**
  * REST Web Service
@@ -47,13 +44,13 @@ public class LejerResource {
         LejerDAO dao = new LejerDAO();
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
 
-        ArrayList<LejerDTO> lejere = dao.getLejere();
+        ArrayList<Lejer> lejere = dao.getLejere();
 
         // If lejere is null either there is no internet or something is completely off
         if (lejere == null)
             throw new WebApplicationException(500);
 
-        for (LejerDTO lejer : lejere) {
+        for (Lejer lejer : lejere) {
             jsonArrayBuilder.add(lejer.getAsJsonBuilder(false));
         }
 
@@ -72,7 +69,7 @@ public class LejerResource {
     @Path("{id}")
     public Response getLejer(@Context Request request, @PathParam("id") int id) throws SQLException{
         LejerDAO dao = new LejerDAO();
-        LejerDTO lejer = dao.getLejer(id);
+        Lejer lejer = dao.getLejer(id);
 
         // If lejer is null either there is no internet or something is completely off
         if (lejer == null)
@@ -90,14 +87,14 @@ public class LejerResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response createLejer(LejerDTO lejer) throws Exception{
+    public Response createLejer(Lejer lejer) throws Exception{
         // Make sure that adresse is in the object
         if (lejer.getAdresse() == null && lejer.getAdresseID() == 0){
             throw new WebApplicationException("Der skal enten være adresse eller adresseID");
         }
 
         if (lejer.getAdresse() != null && lejer.getAdresseID() == 0){
-            AdresseDTO adresse = new AdresseDAO().createAdresse(lejer.getAdresse());
+            Adresse adresse = new AdresseDAO().createAdresse(lejer.getAdresse());
             lejer.setAdresseID(adresse.getAdresseID());
         }
 

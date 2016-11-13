@@ -1,4 +1,4 @@
-package DTO;
+package Domain;
 
 import Helpers.JsonHelper;
 
@@ -8,18 +8,18 @@ import java.util.Date;
 /**
  * Created by mathias on 12/10/2016.
  */
-public class AdresseDTO {
+public class Adresse {
     private Integer adresseID;
     private String vej;
     private String nummer;
     private String postnummer;
     private Date lastUpdated;
 
-    public AdresseDTO() {
+    public Adresse() {
 
     }
 
-    public AdresseDTO(String vej, String nummer, String postnummer) {
+    public Adresse(String vej, String nummer, String postnummer) {
         this.vej = vej;
         this.nummer = nummer;
         this.postnummer = postnummer;

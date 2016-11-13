@@ -6,8 +6,8 @@
 package api;
 
 import DAO.LejekontraktDAO;
-import DTO.LejekontraktDTO;
-import DTO.LejerDTO;
+import Domain.Lejekontrakt;
+import Domain.Lejer;
 import PDFgeneration.KontraktGenerator;
 
 import javax.ws.rs.*;
@@ -38,10 +38,7 @@ public class LejeKontraktResource {
     public LejeKontraktResource() {
     }
 
-    /**
-     * Retrieves representation of an instance of api.LejeKontraktResource
-     * @return an instance of java.lang.String
-     */
+
     @GET
     @Path("{ID}")
     public Response getLejekontrakt(@PathParam("ID") String ID) throws IOException, SQLException{
@@ -54,20 +51,22 @@ public class LejeKontraktResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createLejerkontrakt(LejerDTO lejer) throws IOException, SQLException {
-        LejekontraktDTO localLejekontrakt = new LejekontraktDTO();
+    public Response createLejerkontrakt(Lejer lejer) throws IOException, SQLException {
+        Lejekontrakt localLejekontrakt = new Lejekontrakt();
         localLejekontrakt.setLejer(lejer);
 
-        String lejekontraktPath = "/home/tomcat/uploads/Formular" + new Random().nextInt(100000) + ".pdf";
+        String lejekontraktPath = System.getenv("TEMP_PATH") + "/Formular" + new Random().nextInt(100000) + ".pdf";
+        //String lejekontraktPath = "/home/tomcat/uploads/Formular" + new Random().nextInt(100000) + ".pdf";
 
-        new KontraktGenerator().run("/home/tomcat/uploads/lejekontrakt.pdf", lejekontraktPath, localLejekontrakt);
-
+        new KontraktGenerator().run(System.getenv("CONTRACT_PATH"), lejekontraktPath, localLejekontrakt);
+        //new KontraktGenerator().run("/home/tomcat/uploads/lejekontrakt.pdf", lejekontraktPath, localLejekontrakt);
         int generatedID =  new LejekontraktDAO().uploadFile(lejekontraktPath);
 
         java.nio.file.Path path = FileSystems.getDefault().getPath(lejekontraktPath);
 
         Files.delete(path);
 
-        return Response.ok("/" + generatedID).build();
+        //return Response.ok("/" + generatedID).build();
+        return Response.ok(generatedID).build();
     }
 }

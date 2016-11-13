@@ -1,16 +1,16 @@
-package DTO;
+package Domain;
 
 /**
  * Created by mathias on 21/10/2016.
  */
-public class AndreBidragDTO {
+public class AndreBidrag {
     private int AndreBidragID;
     private String tekst;
     private double værdi;
     private int lejemålID; // denne værdi er udelukkende interresant i databasen.
 
     // Empty constructor for automatic JSON parsing
-    public AndreBidragDTO(){
+    public AndreBidrag(){
 
     }
 

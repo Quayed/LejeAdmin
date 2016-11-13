@@ -3,8 +3,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import DTO.LejekontraktDTO;
-import DTO.LejemålDTO;
+import Domain.Lejekontrakt;
+import Domain.Lejemål;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSDictionary;
 import org.apache.pdfbox.cos.COSName;
@@ -16,7 +16,6 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationWidget;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
-import org.apache.pdfbox.pdmodel.interactive.form.PDCheckBox;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 
 public class KontraktGenerator
@@ -34,10 +33,10 @@ public class KontraktGenerator
         }
     }*/
 
-    public void run(String inputFileString, String outputFileString, LejekontraktDTO lejekontrakt) throws IOException {
+    public void run(String inputFileString, String outputFileString, Lejekontrakt lejekontrakt) throws IOException {
         pdfDocument = PDDocument.load(new File(inputFileString));
         PDAcroForm acroForm = pdfDocument.getDocumentCatalog().getAcroForm();
-        LejemålDTO lejemål;
+        Lejemål lejemål;
 
         /*if (lejekontrakt.getLejemål() != null)
             lejemål = lejekontrakt.getLejemål();

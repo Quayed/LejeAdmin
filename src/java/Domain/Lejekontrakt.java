@@ -1,16 +1,16 @@
-package DTO;
+package Domain;
 
 import java.util.Date;
 
 /**
  * Created by mathias on 12/10/2016.
  */
-public class LejekontraktDTO {
+public class Lejekontrakt {
     private Integer lejekontraktID;
     private Integer lejerID;
-    private LejerDTO lejer;
+    private Lejer lejer;
     private Integer lejemålID;
-    private LejemålDTO lejemål;
+    private Lejemål lejemål;
     private Date begyndelse;
     private Date udflytningsDato;
     private Integer betalingsstedID;
@@ -33,7 +33,7 @@ public class LejekontraktDTO {
     private Date underskriftLejerDato;
     private String lejekontraktNavn;
 
-    public LejekontraktDTO(){
+    public Lejekontrakt(){
         // Costructor without parameters for automatic JSON parsing.
     }
 
@@ -53,11 +53,11 @@ public class LejekontraktDTO {
         this.lejerID = lejerID;
     }
 
-    public LejerDTO getLejer() {
+    public Lejer getLejer() {
         return lejer;
     }
 
-    public void setLejer(LejerDTO lejer) {
+    public void setLejer(Lejer lejer) {
         this.lejer = lejer;
     }
 
@@ -69,11 +69,11 @@ public class LejekontraktDTO {
         this.lejemålID = lejemålID;
     }
 
-    public LejemålDTO getLejemål() {
+    public Lejemål getLejemål() {
         return lejemål;
     }
 
-    public void setLejemål(LejemålDTO lejemål) {
+    public void setLejemål(Lejemål lejemål) {
         this.lejemål = lejemål;
     }
 

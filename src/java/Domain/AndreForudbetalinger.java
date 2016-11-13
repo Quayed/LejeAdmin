@@ -1,9 +1,9 @@
-package DTO;
+package Domain;
 
 /**
  * Created by mathias on 21/10/2016.
  */
-public class AndreForudbetalingerDTO {
+public class AndreForudbetalinger {
     private int andreForudbetalingerID;
     private int lejeKontraktID;
     private String tekst;

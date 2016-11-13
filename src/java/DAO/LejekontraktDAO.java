@@ -1,6 +1,6 @@
 package DAO;
 
-import DTO.LejekontraktDTO;
+import Domain.Lejekontrakt;
 import Helpers.NamedParameterStatement;
 import Helpers.SQLStringHelper;
 
@@ -62,7 +62,7 @@ public class LejekontraktDAO {
 
     }
 
-    public void createLejekontrakt(LejekontraktDTO lejekontrakt) throws Exception{
+    public void createLejekontrakt(Lejekontrakt lejekontrakt) throws Exception{
         if(lejekontrakt.getLejerID() == 0 || lejekontrakt.getLejemålID() == 0 || lejekontrakt.getBegyndelse() == null || lejekontrakt.getBetalingsstedID() == 0)
             throw new IllegalArgumentException("Required fields not filled");
 

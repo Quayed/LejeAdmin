@@ -1,6 +1,6 @@
 package DAO;
 
-import DTO.LejemålDTO;
+import Domain.Lejemål;
 
 import java.util.ArrayList;
 
@@ -8,15 +8,15 @@ import java.util.ArrayList;
  * Created by mathias on 21/10/2016.
  */
 public class LejemålDAO {
-    public LejemålDTO createLejemål(){
+    public Lejemål createLejemål(){
         return null;
     }
 
-    public LejemålDTO getLejemål(int lejemålID){
+    public Lejemål getLejemål(int lejemålID){
         return null;
     }
 
-    public ArrayList<LejemålDTO> getAllLejemål(){
+    public ArrayList<Lejemål> getAllLejemål(){
         return null;
     }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DTO;
+package Domain;
 
 import Helpers.JsonHelper;
 
@@ -15,22 +15,22 @@ import java.util.Date;
  *
  * @author mathias
  */
-public class LejerDTO {
+public class Lejer {
     private int lejerID;
     private String type;
     private String fornavn;
     private String efternavn;
     private int adresseID;
-    private AdresseDTO adresse;
+    private Adresse adresse;
     private String identifikation;
     private String email;
     private String tlfNummer;
     private Date lastUpdated;
 
-    public LejerDTO(){
+    public Lejer(){
 
     }
-    public LejerDTO(String type, String fornavn, String efternavn, int adresseID, String identifikation, String email, String tlfNummer, Date lastUpdated){
+    public Lejer(String type, String fornavn, String efternavn, int adresseID, String identifikation, String email, String tlfNummer, Date lastUpdated){
         this.type = type;
         this.fornavn = fornavn;
         this.efternavn = efternavn;
@@ -139,11 +139,11 @@ public class LejerDTO {
         this.lastUpdated = lastUpdated;
     }
 
-    public AdresseDTO getAdresse() {
+    public Adresse getAdresse() {
         return adresse;
     }
 
-    public void setAdresse(AdresseDTO adresse) {
+    public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
     }
     //</editor-fold>

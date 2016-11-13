@@ -1,13 +1,10 @@
 package DAO;
 
-import DTO.AdresseDTO;
-import Helpers.Loggers;
+import Domain.Adresse;
 import Helpers.NamedParameterStatement;
 import Helpers.SQLStringHelper;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,15 +15,15 @@ import static Helpers.GeneralHelper.isNullOrEmpty;
  * Created by mathias on 12/10/2016.
  */
 public class AdresseDAO {
-    public AdresseDTO getAdresse(int adresseID){
+    public Adresse getAdresse(int adresseID){
 
         return null;
     }
 
-    public ArrayList<AdresseDTO> getAdresser(){
+    public ArrayList<Adresse> getAdresser(){
         String query = "SELECT AdresseID, Vej, Nummer, Postnummer, LastUpdated FROM Adresse;";
 
-        ArrayList<AdresseDTO> adresser = null;
+        ArrayList<Adresse> adresser = null;
 
         try {
 
@@ -34,7 +31,7 @@ public class AdresseDAO {
             ResultSet result = ConnectionHelper.getConnection().prepareStatement(query).executeQuery();
 
             while (result.next()) {
-                AdresseDTO nuværendeAdresse = new AdresseDTO(
+                Adresse nuværendeAdresse = new Adresse(
                         result.getString("Vej"),
                         result.getString("Nummer"),
                         result.getString("Postnummer")
@@ -53,7 +50,7 @@ public class AdresseDAO {
 
     }
 
-    public AdresseDTO createAdresse(AdresseDTO adresse){
+    public Adresse createAdresse(Adresse adresse){
         if (isNullOrEmpty(adresse.getVej()))
             throw new IllegalArgumentException("Ingen vej!");
 

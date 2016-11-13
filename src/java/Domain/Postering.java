@@ -1,14 +1,14 @@
-package DTO;
+package Domain;
 
 import java.util.Date;
 
 /**
  * Created by mathias on 13/10/2016.
  */
-public class PosteringDTO {
+public class Postering {
     private int posteringID;
     private int lejekontraktID;
-    private LejekontraktDTO lejeKontrakt;
+    private Lejekontrakt lejeKontrakt;
     private int type;
     private double beløb;
     private Date posteringsTidspunkt;

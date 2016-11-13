@@ -5,8 +5,8 @@
  */
 package DAO;
 
-import DTO.AdresseDTO;
-import DTO.LejerDTO;
+import Domain.Adresse;
+import Domain.Lejer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +25,7 @@ public class LejerDAO {
 
     }
 
-    public LejerDTO createLejer(LejerDTO lejer) throws IllegalArgumentException{
+    public Lejer createLejer(Lejer lejer) throws IllegalArgumentException{
         // validate all of the customer information
         if (isNullOrEmpty(lejer.getType()) || isNullOrEmpty(lejer.getFornavn()) || isNullOrEmpty(lejer.getIdentifikation()) ||
             isNullOrEmpty(lejer.getEmail()) || isNullOrEmpty(lejer.getTlfNummer())){
@@ -81,9 +81,9 @@ public class LejerDAO {
     }
 
     // Method for getting all of the customers.
-    public ArrayList<LejerDTO> getLejere() {
+    public ArrayList<Lejer> getLejere() {
         String query = "SELECT * FROM Lejer";
-        ArrayList<LejerDTO> lejere = null;
+        ArrayList<Lejer> lejere = null;
         //try {
         ResultSet result = null;
         try {
@@ -92,7 +92,7 @@ public class LejerDAO {
             result = ConnectionHelper.getConnection().prepareStatement(query).executeQuery();
 
         while(result.next()){
-                LejerDTO nuværendeLejer = new LejerDTO(
+                Lejer nuværendeLejer = new Lejer(
                         result.getString("Type"),
                         result.getString("Fornavn"),
                         result.getString("Efternavn"),
@@ -111,12 +111,12 @@ public class LejerDAO {
         return lejere;
     }
 
-    public LejerDTO getLejer(int lejerID) throws IllegalArgumentException{
+    public Lejer getLejer(int lejerID) throws IllegalArgumentException{
         // Check that the id is actually possible
         if (lejerID <= 0){
             throw new IllegalArgumentException("The id can't be less than one.");
         }
-        LejerDTO lejer = null;
+        Lejer lejer = null;
         try {
             String query  = "SELECT " +
                     "Lejer.LejerID," +
@@ -142,7 +142,7 @@ public class LejerDAO {
             if(!result.next())
                 return null;
 
-            lejer = new LejerDTO(
+            lejer = new Lejer(
                     result.getString("Lejer.Type"),
                     result.getString("Lejer.Fornavn"),
                     result.getString("Lejer.Efternavn"),
@@ -155,7 +155,7 @@ public class LejerDAO {
             lejer.setLejerID(result.getInt("LejerID"));
 
             if(result.getInt("Lejer.AdresseID") != 0){
-                lejer.setAdresse(new AdresseDTO(result.getString("Adresse.Vej"),
+                lejer.setAdresse(new Adresse(result.getString("Adresse.Vej"),
                         result.getString("Adresse.Nummer"), result.getString("Adresse.Postnummer")));
                 lejer.getAdresse().setAdresseID(result.getInt("Lejer.AdresseID"));
                 lejer.getAdresse().setLastUpdated(result.getTimestamp("Adresse.LastUpdated"));

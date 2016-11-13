@@ -1,4 +1,4 @@
-package DTO;
+package Domain;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -6,14 +6,14 @@ import java.util.Date;
 /**
  * Created by mathias on 12/10/2016.
  */
-public class LejemålDTO {
+public class Lejemål {
     private int lejemålID;
     private int adresseID;
-    private AdresseDTO adresse;
+    private Adresse adresse;
     private int lejemålTypeID;
     private String lejemålTypeNavn;
     private int udlejerID;
-    private UdlejerDTO udlejer;
+    private Udlejer udlejer;
     private double bruttoAreal;
     private int antalVærelser;
     private double erhvervsLokalerAreal;
@@ -33,7 +33,7 @@ public class LejemålDTO {
     private double kølingsbidrag;
     private double antennebidrag;
     private double beboerrepræsentation;
-    private ArrayList<AndreBidragDTO> andreBidrag;
+    private ArrayList<AndreBidrag> andreBidrag;
     private Date skatterOgAfgifterPr;
     private boolean udlejerLevereFjernvarme;
     private boolean udlejerLevereCentralvarme;
@@ -70,7 +70,7 @@ public class LejemålDTO {
     private boolean husdyrTilladt;
     private boolean husordenForeligger;
 
-    public LejemålDTO(){
+    public Lejemål(){
         // Constructor without parameters for automatic json parsing
     }
 
@@ -90,11 +90,11 @@ public class LejemålDTO {
         this.adresseID = adresseID;
     }
 
-    public AdresseDTO getAdresse() {
+    public Adresse getAdresse() {
         return adresse;
     }
 
-    public void setAdresse(AdresseDTO adresse) {
+    public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
     }
 
@@ -122,11 +122,11 @@ public class LejemålDTO {
         this.udlejerID = udlejerID;
     }
 
-    public UdlejerDTO getUdlejer() {
+    public Udlejer getUdlejer() {
         return udlejer;
     }
 
-    public void setUdlejer(UdlejerDTO udlejer) {
+    public void setUdlejer(Udlejer udlejer) {
         this.udlejer = udlejer;
     }
 
@@ -562,11 +562,11 @@ public class LejemålDTO {
         this.husordenForeligger = husordenForeligger;
     }
 
-    public ArrayList<AndreBidragDTO> getAndreBidrag() {
+    public ArrayList<AndreBidrag> getAndreBidrag() {
         return andreBidrag;
     }
 
-    public void setAndreBidrag(ArrayList<AndreBidragDTO> andreBidrag) {
+    public void setAndreBidrag(ArrayList<AndreBidrag> andreBidrag) {
         this.andreBidrag = andreBidrag;
     }
 }

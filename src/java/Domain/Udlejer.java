@@ -1,17 +1,17 @@
-package DTO;
+package Domain;
 
 /**
  * Created by mathias on 21/10/2016.
  */
-public class UdlejerDTO {
+public class Udlejer {
     private int udlejerID;
     private String navn;
     private String CVR;
     private int adresseID;
-    private AdresseDTO adresse;
+    private Adresse adresse;
 
     // Empty constructor to allow for automatic JSON parsing
-    public UdlejerDTO(){
+    public Udlejer(){
 
     }
 
@@ -48,11 +48,11 @@ public class UdlejerDTO {
         this.adresseID = adresseID;
     }
 
-    public AdresseDTO getAdresse() {
+    public Adresse getAdresse() {
         return adresse;
     }
 
-    public void setAdresse(AdresseDTO adresse) {
+    public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
     }
     //</editor-fold>
