@@ -26,6 +26,7 @@ public class Lejer {
     private String email;
     private String tlfNummer;
     private Date lastUpdated;
+    private boolean isDeleted;
 
     public Lejer(){
 
@@ -145,6 +146,14 @@ public class Lejer {
 
     public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
     //</editor-fold>
 }

@@ -33,6 +33,7 @@ public class ApplicationConfig extends Application {
         resources.add(api.Filters.RestRequestFilter.class);
         resources.add(api.Filters.RestResponseFilter.class);
         resources.add(api.LejeKontraktResource.class);
+        resources.add(api.LejemålResource.class);
         resources.add(api.LejerResource.class);
     }
     

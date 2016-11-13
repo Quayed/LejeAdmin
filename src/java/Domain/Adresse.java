@@ -14,6 +14,7 @@ public class Adresse {
     private String nummer;
     private String postnummer;
     private Date lastUpdated;
+    private boolean isDeleted;
 
     public Adresse() {
 
@@ -88,6 +89,14 @@ public class Adresse {
 
     public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
     //</editor-fold>
 }

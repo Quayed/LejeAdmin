@@ -69,6 +69,8 @@ public class Lejemål {
     private boolean etableretBeboerRepræsentation;
     private boolean husdyrTilladt;
     private boolean husordenForeligger;
+    private boolean isDeleted;
+    private Date lastUpdated;
 
     public Lejemål(){
         // Constructor without parameters for automatic json parsing
@@ -568,5 +570,21 @@ public class Lejemål {
 
     public void setAndreBidrag(ArrayList<AndreBidrag> andreBidrag) {
         this.andreBidrag = andreBidrag;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }

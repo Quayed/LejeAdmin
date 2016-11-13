@@ -1,5 +1,7 @@
 package Domain;
 
+import java.util.Date;
+
 /**
  * Created by mathias on 21/10/2016.
  */
@@ -9,6 +11,8 @@ public class Udlejer {
     private String CVR;
     private int adresseID;
     private Adresse adresse;
+    private Date lastUpdated;
+    private boolean isDeleted;
 
     // Empty constructor to allow for automatic JSON parsing
     public Udlejer(){
@@ -54,6 +58,22 @@ public class Udlejer {
 
     public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
+    }
+
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
     //</editor-fold>
 }

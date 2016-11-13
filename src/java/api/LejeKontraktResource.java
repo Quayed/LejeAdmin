@@ -9,6 +9,7 @@ import DAO.LejekontraktDAO;
 import Domain.Lejekontrakt;
 import Domain.Lejer;
 import PDFgeneration.KontraktGenerator;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.Path;
@@ -47,7 +48,13 @@ public class LejeKontraktResource {
         return response;
     }
 
-
+    @GET
+    @Path("standard")
+    public Response getStandardLejekontrakt() throws Exception{
+        // Get the standard lejekontrakt from DB
+        // return the object as json
+        throw new NotImplementedException();
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
